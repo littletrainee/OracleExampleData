@@ -1,0 +1,35 @@
+
+CREATE VIEW INVOICES 
+AS
+    SELECT O.SHIP_NAME, 
+           O.SHIP_ADDRESS, 
+           O.SHIP_CITY, 
+           O.SHIP_REGION, 
+           O.SHIP_POSTAL_CODE, 
+           O.SHIP_COUNTRY, 
+           O.CUSTOMER_ID, 
+           C.COMPANY_NAME AS CUSTOMER_NAME, 
+           C.ADDRESS, 
+           C.CITY, 
+           C.REGION, 
+           C.POSTAL_CODE, 
+           C.COUNTRY, 
+           E.FIRST_NAME || ' ' || E.LAST_NAME AS SALES_PERSON, 
+           O.ORDER_ID, 
+           O.ORDER_DATE, 
+           O.REQUIRED_DATE, 
+           O.SHIPPED_DATE, 
+           S.COMPANY_NAME As SHIPPER_NAME, 
+           OD.PRODUCT_ID, 
+           P.PRODUCT_NAME, 
+           OD.UNIT_PRICE, 
+           OD.QUANTITY, 
+           OD.DISCOUNT, 
+           OD.UNIT_PRICE * QUANTITY * (1 - Discount) AS EXTENDED_PRICE, 
+           O.FREIGHT
+      FROM ORDERS O
+      JOIN CUSTOMERS C ON O.CUSTOMER_ID = C.CUSTOMER_ID 
+      JOIN EMPLOYEES E ON O.EMPLOYEE_ID = E.EMPLOYEE_ID 
+      JOIN SHIPPERS S ON O.SHIP_VIA = S.SHIPPER_ID 
+      JOIN ORDER_DETAILS OD ON O.ORDER_ID = OD.ORDER_ID 
+      JOIN PRODUCTS P ON OD.PRODUCT_ID = P.PRODUCT_ID;

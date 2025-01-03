@@ -1,0 +1,10 @@
+CREATE VIEW TEN_MOST_EXPENSIVE_PRODUCTS 
+AS
+    SELECT *
+      FROM (
+               SELECT P.PRODUCT_NAME AS TEN_MOST_EXPENSIVE_PRODUCTS, 
+                      P.UNIT_PRICE
+                 FROM PRODUCTS P
+             ORDER BY P.UNIT_PRICE DESC
+           )
+     WHERE ROWNUM <=10;
