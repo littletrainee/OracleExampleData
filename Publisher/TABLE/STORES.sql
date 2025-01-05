@@ -1,0 +1,29 @@
+DECLARE
+    V_EXIST NUMBER;
+BEGIN
+    SELECT COUNT(*)
+      INTO V_EXIST
+      FROM USER_TABLES
+     WHERE TABLE_NAME = 'STORES';
+    IF V_EXIST <> 0 THEN
+        EXECUTE IMMEDIATE 'DROP TABLE STORES CASCADE CONSTRAINT PURGE';
+    END IF; 
+END;
+/
+
+CREATE TABLE STORES(
+    STORE_ID CHAR(4) NOT NULL,
+    STORE_NAME VARCHAR2(40),
+    STORE_ADDRESS VARCHAR2(40),
+    CITY VARCHAR2(20),
+    STATE CHAR(2),
+    ZIP CHAR(5),
+    CONSTRAINT PK_STORES PRIMARY KEY (STORE_ID)
+);
+
+INSERT INtO STORES VALUES ('7066','Barnum''s','567 Pasadena Ave.','Tustin','CA','92789');
+INSERT INtO STORES VALUES ('7067','News & Brews','577 First St.','Los Gatos','CA','96745');
+INSERT INtO STORES VALUES ('7131','Doc-U-Mat: Quality Laundry and Books', '24-A Avogadro Way','Remulade','WA','98014');
+INSERT INtO STORES VALUES ('8042','Bookbeat','679 Carson St.','Portland','OR','89076');
+INSERT INtO STORES VALUES ('6380','Eric the Read Books','788 Catamaugus Ave.', 'Seattle','WA','98056');
+INSERT INtO STORES VALUES ('7896','Fricative Bookshop','89 Madison St.','Fremont','CA','90019');
